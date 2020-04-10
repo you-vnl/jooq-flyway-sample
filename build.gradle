@@ -1,5 +1,5 @@
 allprojects {
-    group = 'com.example'
+    group = 'com.vnl'
     version = '1.0-SNAPSHOT'
 }
 

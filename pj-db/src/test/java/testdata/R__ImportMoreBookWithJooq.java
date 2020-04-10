@@ -1,41 +1,33 @@
 package testdata;
 
-import com.example.db.jooq.gen.tables.JBook;
-import com.example.db.jooq.gen.tables.records.BookRecord;
+import static org.jooq.impl.DSL.using;
+
+import com.vnl.db.jooq.gen.tables.BookTable;
+import com.vnl.db.jooq.gen.tables.records.BookRecord;
+import java.time.LocalDate;
+import java.util.stream.IntStream;
 import org.flywaydb.core.api.migration.BaseJavaMigration;
 import org.flywaydb.core.api.migration.Context;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
-import org.springframework.jdbc.datasource.SingleConnectionDataSource;
-
-import javax.sql.DataSource;
-import java.time.LocalDate;
-
-import static org.jooq.impl.DSL.using;
 
 public class R__ImportMoreBookWithJooq extends BaseJavaMigration {
 
     @Override
-    public void migrate(Context context) throws Exception {
+    public void migrate(final Context context) {
 
-        DataSource ds = new SingleConnectionDataSource(context.getConnection(), true);
+        final int NUMBER_OF_RECORDS = 10;
 
-        DSLContext dslContext = using(context.getConnection(), SQLDialect.POSTGRES);
-
+        final DSLContext dslContext = using(context.getConnection(), SQLDialect.POSTGRES);
         final LocalDate baseDate = LocalDate.of(2010, 1, 1);
 
-        for (int i = 1; i <= 10; i++) {
-            String isbn = "test-isbn-" + i;
-            String title = "test book " + i;
-
-            final LocalDate publishDate = baseDate.plusDays(i);
-            final JBook jBook = JBook.BOOK;
-
-            final BookRecord rec = dslContext.newRecord(jBook);
-            rec.setIsbn("isbn-test-with-jooq-" + i);
-            rec.setTitle("test title with jooq " + i);
-            rec.setPublishDate(java.sql.Date.valueOf(baseDate.plusDays(i)));
-            rec.store();
-        }
+        IntStream.range(0, NUMBER_OF_RECORDS)
+            .forEach(i -> {
+                final BookRecord rec = dslContext.newRecord(BookTable.BOOK);
+                rec.setIsbn("isbn-test-with-jooq-" + i);
+                rec.setTitle("test title with jooq " + i);
+                rec.setPublishDate(java.sql.Date.valueOf(baseDate.plusDays(i)));
+                rec.store();
+            });
     }
 }

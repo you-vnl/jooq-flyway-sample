@@ -1,11 +1,19 @@
-apply plugin:'application'
+apply plugin: 'application'
 
-mainClassName = "com.example.web.SampleApplication"
+mainClassName = "com.vnl.web.SampleApplication"
+
+repositories {
+    mavenCentral()
+}
 
 dependencies {
-    compile group:"org.springframework.boot", name:"spring-boot-starter-web", version:"${springBootVersion}"
-    compile group:"org.springframework.boot", name:"spring-boot-starter-thymeleaf", version:"${springBootVersion}"
-    compile group:"org.springframework.boot", name:"spring-boot-starter-jdbc", version:"${springBootVersion}"
+    compile group: "org.springframework.boot", name: "spring-boot-starter-web", version: "${springBootVersion}"
+    compile group: "org.springframework.boot", name: "spring-boot-starter-thymeleaf", version: "${springBootVersion}"
+    compile group: "org.springframework.boot", name: "spring-boot-starter-jdbc", version: "${springBootVersion}"
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     runtime group: 'org.postgresql', name: 'postgresql', version: "${postgresqlDriverVersion}"
     compile project(":pj-db")
 }

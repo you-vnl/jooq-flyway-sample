@@ -1,30 +1,27 @@
-package com.example.web;
+package com.vnl.web;
 
+import javax.sql.DataSource;
+import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DataSourceConnectionProvider;
 import org.jooq.impl.DefaultConfiguration;
 import org.jooq.impl.DefaultDSLContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
-
+/**
+ * データソースの設定クラス
+ */
 @Configuration
-public class SampleConfig {
+@RequiredArgsConstructor
+public class DataSourceConfig {
 
     private final DataSource dataSource;
 
-    @Autowired
-    public SampleConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-
     @Bean
     public org.jooq.Configuration configuration() {
-
-        DefaultConfiguration config = new DefaultConfiguration();
+        final DefaultConfiguration config = new DefaultConfiguration();
         config.set(new DataSourceConnectionProvider(dataSource));
         config.set(SQLDialect.POSTGRES);
         config.settings().setRenderSchema(false);
@@ -34,7 +31,7 @@ public class SampleConfig {
     }
 
     @Bean
-    public DSLContext dsl(org.jooq.Configuration configuration) {
-
+    public DSLContext dsl(final org.jooq.Configuration configuration) {
         return new DefaultDSLContext(configuration);
-    }}
+    }
+}

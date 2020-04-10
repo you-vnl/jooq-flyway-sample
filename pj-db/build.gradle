@@ -3,12 +3,12 @@
 def dbUrl = "jdbc:postgresql://${dbHost}:${dbPort}/${dbName}"
 def jdbcDriver = "org.postgresql.Driver"
 def jooqDestDir = "$buildDir/jooq-gen/"
-def jooqDestPackage = 'com.example.db.jooq.gen'
+def jooqDestPackage = 'com.vnl.db.jooq.gen'
 
 buildscript {
     dependencies {
         // コード生成用の依存モジュール定義
-        classpath group: "nu.studer", name:"gradle-jooq-plugin", version:"3.0.3"
+        classpath group: "nu.studer", name: "gradle-jooq-plugin", version: "3.0.3"
         classpath group: "org.flywaydb", name: "flyway-gradle-plugin", version: "${flywayVersion}"
         classpath group: 'org.postgresql', name: 'postgresql', version: "${postgresqlDriverVersion}"
     }
@@ -18,12 +18,13 @@ apply plugin: "org.flywaydb.flyway"
 apply plugin: "nu.studer.jooq"
 
 dependencies {
-    compile group: "org.jooq", name:"jooq", version:"${jooqVersion}"
-    testCompile group: "org.flywaydb", name:"flyway-core", version: "${flywayVersion}"
-    testCompile group: "org.springframework.boot", name:"spring-boot-starter-data-jdbc", version:"${springBootVersion}"
+    compile group: "org.jooq", name: "jooq", version: "${jooqVersion}"
+    compile group: "javax.annotation", name: "javax.annotation-api", version: "1.3.2"
+    testCompile group: "org.flywaydb", name: "flyway-core", version: "${flywayVersion}"
+    testCompile group: "org.springframework.boot", name: "spring-boot-starter-data-jdbc", version: "${springBootVersion}"
     jooqRuntime group: 'org.postgresql', name: 'postgresql', version: "${postgresqlDriverVersion}"
     jooqRuntime 'org.slf4j:slf4j-simple:1.7.25'
-    jooqRuntime project(':pj-db-custom-strategy')
+    jooqRuntime project(':jooq-db-custom-strategy')
 }
 
 flyway {
@@ -37,7 +38,7 @@ jooq {
     edition = 'OSS' // if you use oracle, you should pay :-)
 
     // the name "sample" -> task name "generateSampleJooqSchemaSource" . see below.
-    sample (sourceSets.main) {
+    sample(sourceSets.main) {
         jdbc {
             driver = "${jdbcDriver}"
             url = "${dbUrl}"
@@ -50,7 +51,7 @@ jooq {
                 directory = "${jooqDestDir}"
             }
             strategy {
-                name = 'com.example.db.jooq.generator.SamplePrefixGeneratorStrategy'
+                name = 'com.vnl.db.jooq.generator.CustomPrefixGeneratorStrategy'
             }
             database() {
                 name = 'org.jooq.meta.postgres.PostgresDatabase'
