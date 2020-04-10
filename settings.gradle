@@ -1,4 +1,4 @@
-rootProject.name = 'jooq-flyway-spboot-sample'
+rootProject.name = 'jooq-flyway-sample'
 include 'pj-db'
 include 'jooq-db-custom-strategy'
 include 'pj-web'
