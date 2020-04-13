@@ -14,4 +14,4 @@ done
 
 sh ./gradlew flywayMigrate -p pj-db
 sh ./gradlew clean build -p pj-db
-sh ./gradlew flywayMigrate -D spring.flyway.locations=classpath:testdata
+sh ./gradlew flywayMigrate -Dflyway.locations=classpath:testdata
