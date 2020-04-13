@@ -18,12 +18,12 @@ public class R__ImportMoreBookWithJooq extends BaseJavaMigration {
 
         final int NUMBER_OF_RECORDS = 10;
 
-        final DSLContext dslContext = using(context.getConnection(), SQLDialect.POSTGRES);
+        final DSLContext create = using(context.getConnection(), SQLDialect.POSTGRES);
         final LocalDate baseDate = LocalDate.of(2010, 1, 1);
 
         IntStream.range(0, NUMBER_OF_RECORDS)
             .forEach(i -> {
-                final BookRecord rec = dslContext.newRecord(BookTable.BOOK);
+                final BookRecord rec = create.newRecord(BookTable.BOOK);
                 rec.setIsbn("isbn-test-with-jooq-" + i);
                 rec.setTitle("test title with jooq " + i);
                 rec.setPublishDate(java.sql.Date.valueOf(baseDate.plusDays(i)));

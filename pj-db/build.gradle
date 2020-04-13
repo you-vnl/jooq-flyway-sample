@@ -52,7 +52,7 @@ jooq {
                 directory = "${jooqDestDir}"
             }
             strategy {
-                name = 'com.vnl.db.jooq.generator.CustomPrefixGeneratorStrategy'
+                name = 'com.vnl.db.jooq.generator.CustomSuffixGeneratorStrategy'
             }
             database() {
                 name = 'org.jooq.meta.postgres.PostgresDatabase'
