@@ -5,7 +5,7 @@ import org.jooq.codegen.GeneratorStrategy.Mode;
 import org.jooq.tools.StringUtils;
 
 /**
- * 自動生成Suffixクラス。必要に応じて命名規則を修正、追加していきます。
+ * 自動生成Suffixクラス。必要に応じて命名規則を修正、追加していきます。(未使用)
  */
 enum GenerationSuffix {
 

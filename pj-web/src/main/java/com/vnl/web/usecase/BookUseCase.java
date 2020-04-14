@@ -1,15 +1,16 @@
 package com.vnl.web.usecase;
 
 import com.vnl.web.repository.BookRepository;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Bookユースケースクラス
+ */
 @Controller
 @RequiredArgsConstructor
 @Transactional
@@ -23,25 +24,16 @@ public class BookUseCase {
      * @return 全てのBookリスト
      */
     public List<BookDto> findAll() {
-        return bookRepository.selectAll()
+        return bookRepository.findAll()
             .stream()
-            .map(v -> new BookDto(v.getTitle(), v.getIsbn(), v.getPublishDate()))
+            .map(v -> new BookDto(v.getTitle(), v.getIsbn(), v.getPublishDate(), v.getDaysAgo()))
             .collect(Collectors.toList());
     }
 
     /**
      * BookのDtoクラスです。
      */
-    @Value
-    public static class BookDto {
-
-        String title;
-        String isbn;
-        LocalDate publishDate;
-
-        public long getDaysAgo() {
-            return Duration.between(publishDate.atStartOfDay(), LocalDate.now().atStartOfDay()).toDays();
-        }
+    public record BookDto(String title, String isbn, LocalDate publishDate, long daysAgo) {
 
     }
 

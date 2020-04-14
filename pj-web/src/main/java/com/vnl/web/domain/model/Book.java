@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import lombok.Value;
 
 /**
- * Bookのモデルクラスです。
+ * Bookのモデルクラス
  */
 @Value
 public class Book {

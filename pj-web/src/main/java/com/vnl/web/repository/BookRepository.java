@@ -9,13 +9,16 @@ import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Bookリポジトリクラス
+ */
 @Repository
 @RequiredArgsConstructor
 public class BookRepository {
 
     private final DSLContext create;
 
-    public List<Book> selectAll() {
+    public List<Book> findAll() {
         final BookTable bookTable = BookTable.BOOK;
 
         final List<BookRecord> selected = create
