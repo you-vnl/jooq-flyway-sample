@@ -24,7 +24,7 @@ public class BookUseCase {
      * @return 全てのBookリスト
      */
     public List<BookDto> findAll() {
-        return bookRepository.findAll()
+        return bookRepository.findBookList()
             .stream()
             .map(v -> new BookDto(v.getTitle(), v.getIsbn(), v.getPublishDate(), v.getDaysAgo()))
             .collect(Collectors.toList());

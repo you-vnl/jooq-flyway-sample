@@ -18,20 +18,31 @@ public class BookRepository {
 
     private final DSLContext create;
 
-    public List<Book> findAll() {
-        final BookTable bookTable = BookTable.BOOK;
-
-        final List<BookRecord> selected = create
-            .select(bookTable.ISBN,
-                bookTable.TITLE,
-                bookTable.PUBLISH_DATE)
-            .from(bookTable)
-            .orderBy(bookTable.PUBLISH_DATE)
-            .fetchInto(BookRecord.class);
-
-        return selected
+    /**
+     * Bookリストを検索します。
+     *
+     * @return Bookリスト
+     */
+    public List<Book> findBookList() {
+        return findAll()
             .stream()
             .map(bookRecord -> new Book(bookRecord.getTitle(), bookRecord.getIsbn(), bookRecord.getPublishDate().toLocalDate()))
             .collect(Collectors.toList());
+    }
+
+
+    /**
+     * BookRecordリストを検索します。<br> jOOQのRecord型はリポジトリレイヤに隠蔽するため非publicとしています。
+     *
+     * @return BookRecordリスト
+     */
+    List<BookRecord> findAll() {
+        return create
+            .select(BookTable.BOOK.ISBN,
+                BookTable.BOOK.TITLE,
+                BookTable.BOOK.PUBLISH_DATE)
+            .from(BookTable.BOOK)
+            .orderBy(BookTable.BOOK.PUBLISH_DATE)
+            .fetchInto(BookRecord.class);
     }
 }
