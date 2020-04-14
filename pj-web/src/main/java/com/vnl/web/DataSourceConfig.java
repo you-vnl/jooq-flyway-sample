@@ -4,7 +4,6 @@ import javax.sql.DataSource;
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
-import org.jooq.impl.DataSourceConnectionProvider;
 import org.jooq.impl.DefaultConfiguration;
 import org.jooq.impl.DefaultDSLContext;
 import org.springframework.context.annotation.Bean;
@@ -22,11 +21,10 @@ public class DataSourceConfig {
     @Bean
     public org.jooq.Configuration configuration() {
         final DefaultConfiguration config = new DefaultConfiguration();
-        config.set(new DataSourceConnectionProvider(dataSource));
-        config.set(SQLDialect.POSTGRES);
+        config.setDataSource(dataSource);
+        config.setSQLDialect(SQLDialect.POSTGRES);
         config.settings().setRenderSchema(false);
         config.settings().withRenderFormatted(false);
-        config.settings().setExecuteLogging(false);
         return config;
     }
 

@@ -17,7 +17,7 @@
   <!--  </appender>-->
 
   <!--  <logger name="com.vnl" level="INFO"/>-->
-  <logger name="org.jooq" level="INFO"/>
+  <logger name="org.jooq" level="DEBUG"/>
 
   <root>
     <appender-ref ref="STDOUT"/>
