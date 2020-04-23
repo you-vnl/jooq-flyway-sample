@@ -10,6 +10,8 @@ dependencies {
     implementation group: "org.springframework.boot", name: "spring-boot-starter-web", version: "${springBootVersion}"
     implementation group: "org.springframework.boot", name: "spring-boot-starter-thymeleaf", version: "${springBootVersion}"
     implementation group: "org.springframework.boot", name: "spring-boot-starter-jdbc", version: "${springBootVersion}"
+    implementation group: "org.springframework.boot", name: "spring-boot-starter-aop", version: "${springBootVersion}"
+
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
