@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,6 +56,19 @@ public class BookController {
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+
+    /**
+     * BookをIDから取得します。
+     *
+     * @param id ID
+     * @return Bookレスポンス
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<BookResponse> findById(@PathVariable("id") final String id) {
+        return bookUseCase.findById(id)
+            .map(v -> new ResponseEntity<>(new BookResponse(v.title(), v.isbn(), v.publishDate(), v.daysAgo()), HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }
