@@ -26,7 +26,7 @@ public class R__ImportMoreBookWithJooq extends BaseJavaMigration {
                 final BookRecord rec = create.newRecord(BookTable.BOOK);
                 rec.setIsbn("isbn-test-with-jooq-" + i);
                 rec.setTitle("test title with jooq " + i);
-                rec.setPublishDate(java.sql.Date.valueOf(baseDate.plusDays(i)));
+                rec.setPublishDate(baseDate.plusDays(i));
                 rec.store();
             });
     }

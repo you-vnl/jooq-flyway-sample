@@ -1,13 +1,13 @@
-package com.vnl.web.presentation.response;
+package com.vnl.web.presentation.request;
 
 import java.time.LocalDate;
 import lombok.Value;
 
 /**
- * BookのResponseクラスです。
+ * BookのRequestクラスです。
  */
 @Value
-public class BookResponse {
+public class BookRequest {
 
     /**
      * タイトル
@@ -23,9 +23,4 @@ public class BookResponse {
      * 公開日
      */
     LocalDate publishDate;
-
-    /**
-     * 経過日数
-     */
-    long daysAgo;
 }

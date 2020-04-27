@@ -1,4 +1,4 @@
-package com.vnl.web.repository;
+package com.vnl.web.domain.repository;
 
 import static com.vnl.db.jooq.gen.tables.BookTable.BOOK;
 
@@ -12,11 +12,11 @@ import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 
 /**
- * Bookリポジトリクラス
+ * Bookクエリリポジトリクラス
  */
 @Repository
 @RequiredArgsConstructor
-public class BookRepository {
+public class BookQueryRepository {
 
     private final DSLContext create;
 
@@ -28,7 +28,7 @@ public class BookRepository {
     public List<Book> findBookList() {
         return findAll()
             .stream()
-            .map(bookRecord -> new Book(bookRecord.getTitle(), bookRecord.getIsbn(), bookRecord.getPublishDate().toLocalDate()))
+            .map(bookRecord -> new Book(bookRecord.getTitle(), bookRecord.getIsbn(), bookRecord.getPublishDate()))
             .collect(Collectors.toList());
     }
 
@@ -46,7 +46,7 @@ public class BookRepository {
             .where(BOOK.ISBN.eq(id))
             .orderBy(BOOK.PUBLISH_DATE)
             .fetchOptionalInto(BookRecord.class)
-            .map(bookRecord -> new Book(bookRecord.getTitle(), bookRecord.getIsbn(), bookRecord.getPublishDate().toLocalDate()));
+            .map(bookRecord -> new Book(bookRecord.getTitle(), bookRecord.getIsbn(), bookRecord.getPublishDate()));
     }
 
 
@@ -64,4 +64,5 @@ public class BookRepository {
             .orderBy(BOOK.PUBLISH_DATE)
             .fetchInto(BookRecord.class);
     }
+
 }

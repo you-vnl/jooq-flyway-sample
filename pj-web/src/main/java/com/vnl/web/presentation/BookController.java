@@ -1,7 +1,9 @@
 package com.vnl.web.presentation;
 
+import com.vnl.web.presentation.request.BookRequest;
 import com.vnl.web.presentation.response.BookResponse;
 import com.vnl.web.usecase.BookUseCase;
+import com.vnl.web.usecase.BookUseCase.BookRequestDto;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -71,4 +74,17 @@ public class BookController {
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    /**
+     * Bookの登録を行います。
+     *
+     * @param request bookリクエストパラメータ
+     * @return CREATED(201, " Created ")
+     */
+    @PostMapping
+    public ResponseEntity<HttpStatus> register(final BookRequest request) {
+        bookUseCase.register(new BookRequestDto(request.getTitle(), request.getIsbn(), request.getPublishDate()));
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+
+    }
 }
