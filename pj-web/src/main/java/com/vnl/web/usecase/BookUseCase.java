@@ -56,14 +56,12 @@ public class BookUseCase {
      * BookResponseのDtoクラスです。
      */
     public record BookResponseDto(String title, String isbn, LocalDate publishDate, Long daysAgo) {
-
     }
 
     /**
      * BookRequestのDtoクラスです。
      */
     public record BookRequestDto(String title, String isbn, LocalDate publishDate) {
-
     }
 
 
