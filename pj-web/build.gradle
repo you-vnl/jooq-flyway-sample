@@ -1,9 +1,17 @@
-apply plugin: 'application'
+plugins {
+    id 'application'
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+}
 
 mainClassName = "com.vnl.web.SampleApplication"
 
 repositories {
     mavenCentral()
+}
+
+bootRun {
+    sourceResources sourceSets.main
 }
 
 dependencies {
@@ -14,6 +22,7 @@ dependencies {
     implementation 'io.swagger:swagger-annotations:1.6.0'
     implementation "io.springfox:springfox-swagger2:${springFoxVersion}"
     implementation "io.springfox:springfox-swagger-ui:${springFoxVersion}"
+    implementation "org.springframework.boot:spring-boot-devtools"
 
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
@@ -34,4 +43,3 @@ test {
 run {
     jvmArgs = ['--enable-preview']
 }
-
