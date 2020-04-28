@@ -1,6 +1,7 @@
 package com.vnl.web;
 
 import javax.sql.DataSource;
+import org.jooq.ConnectionProvider;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DataSourceConnectionProvider;
 import org.jooq.impl.DefaultConfiguration;
@@ -16,50 +17,50 @@ import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 import org.springframework.transaction.PlatformTransactionManager;
 
 /**
- * データソースの設定クラス
+ * データソースの設定クラスです。MainDBをPrimaryとして接続設定を行います。
  */
 @Configuration
 public class DataSourceConfig {
 
-    @Bean
     @Primary
-    @ConfigurationProperties(prefix = "spring.datasource")
-    public DataSourceProperties datasourcePrimaryProperties() {
+    @Bean
+    @ConfigurationProperties(prefix = "spring.datasource.main")
+    public DataSourceProperties datasourceMainProperties() {
         return new DataSourceProperties();
     }
 
-    @Bean("datasourcePrimary")
     @Primary
-    public DataSource datasourcePrimary(
-        @Qualifier("datasourcePrimaryProperties") final DataSourceProperties properties) {
+    @Bean
+    public DataSource datasourceMain(@Qualifier("datasourceMainProperties") final DataSourceProperties properties) {
         return properties.initializeDataSourceBuilder().build();
     }
 
-    @Bean(name = {"txManager1"})
-    @Primary
-    public PlatformTransactionManager txManager(final DataSource dataSource1) {
+    @Bean
+    public PlatformTransactionManager transactionManagerMain(@Qualifier("datasourceMain") final DataSource dataSource1) {
         return new DataSourceTransactionManager(new TransactionAwareDataSourceProxy(dataSource1));
     }
 
     @Bean
-    public DataSourceConnectionProvider connectionProvider() {
-        return new DataSourceConnectionProvider(transactionAwareDataSource());
+    public TransactionAwareDataSourceProxy transactionAwareDataSource(@Qualifier("datasourceMain") final DataSource dataSource) {
+        return new TransactionAwareDataSourceProxy(dataSource);
     }
 
     @Bean
-    public TransactionAwareDataSourceProxy transactionAwareDataSource() {
-        return new TransactionAwareDataSourceProxy(datasourcePrimary(datasourcePrimaryProperties()));
+    public DataSourceConnectionProvider connectionProviderMain(@Qualifier("transactionAwareDataSource") final DataSource dataSource) {
+        return new DataSourceConnectionProvider(dataSource);
     }
 
+    @Primary
     @Bean
-    public DefaultDSLContext dsl(final org.jooq.Configuration configuration) {
+    public DefaultDSLContext dslContextMain(@Qualifier("configurationMain") final DefaultConfiguration configuration) {
         return new DefaultDSLContext(configuration);
     }
 
+    @Primary
     @Bean
-    public org.jooq.Configuration configuration() {
+    public DefaultConfiguration configurationMain(@Qualifier("connectionProviderMain") final ConnectionProvider connectionProvider) {
         final DefaultConfiguration config = new DefaultConfiguration();
-        config.setConnectionProvider(connectionProvider());
+        config.setConnectionProvider(connectionProvider);
         config.setSQLDialect(SQLDialect.POSTGRES);
         return config;
     }
