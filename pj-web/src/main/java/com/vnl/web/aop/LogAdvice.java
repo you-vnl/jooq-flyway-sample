@@ -15,12 +15,12 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class LogAdvice {
 
-    @Before("execution(* com.vnl.web.usecase.*.*(..))")
+    @Before("within(com.vnl.web.usecase.*)")
     public static void invokeBeforeUseCase(final JoinPoint joinPoint) {
         methodLog(joinPoint.getTarget().getClass().toString(), joinPoint.getSignature().getName(), "start");
     }
 
-    @After("execution(* com.vnl.web.usecase.*.*(..))")
+    @After("within(com.vnl.web.usecase.*)")
     public static void invokeAfterUseCase(final JoinPoint joinPoint) {
         methodLog(joinPoint.getTarget().getClass().toString(), joinPoint.getSignature().getName(), "end");
     }
