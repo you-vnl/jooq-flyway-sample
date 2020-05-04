@@ -65,4 +65,21 @@ public class BookQueryRepository {
             .fetchInto(BookRecord.class);
     }
 
+    /**
+     * BookRecordリストをCSV文字列として返します。(最大200件まで)
+     *
+     * @return BookRecordリストのCSV文字列
+     */
+    public String findAllToCsvString() {
+        return create
+            .select(BOOK.ISBN,
+                BOOK.TITLE,
+                BOOK.PUBLISH_DATE)
+            .from(BOOK)
+            .orderBy(BOOK.PUBLISH_DATE)
+            .limit(200)
+            .fetch()
+            .formatCSV();
+    }
+
 }

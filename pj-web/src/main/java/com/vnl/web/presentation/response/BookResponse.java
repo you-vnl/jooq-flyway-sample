@@ -9,15 +9,16 @@ import lombok.Value;
 @Value
 public class BookResponse {
 
-    /**
-     * タイトル
-     */
-    String title;
 
     /**
      * ISBN
      */
     String isbn;
+
+    /**
+     * タイトル
+     */
+    String title;
 
     /**
      * 公開日
