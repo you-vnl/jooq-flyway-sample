@@ -8,7 +8,7 @@ def jooqDestPackage = 'com.vnl.db.jooq.gen'
 buildscript {
     dependencies {
         // コード生成用の依存モジュール定義
-        classpath group: "nu.studer", name: "gradle-jooq-plugin", version: "4.1"
+        classpath group: "nu.studer", name: "gradle-jooq-plugin", version: "4.2"
         classpath group: "org.flywaydb", name: "flyway-gradle-plugin", version: "${flywayVersion}"
         classpath group: 'org.postgresql', name: 'postgresql', version: "${postgresqlDriverVersion}"
     }
@@ -21,6 +21,8 @@ apply plugin: 'java-library'
 dependencies {
     api group: "org.jooq", name: "jooq", version: "${jooqVersion}"
     implementation group: "javax.annotation", name: "javax.annotation-api", version: "1.3.2"
+    implementation group: 'org.jetbrains', name: 'annotations', version: '19.0.0'
+
     testImplementation group: "org.flywaydb", name: "flyway-core", version: "${flywayVersion}"
     testImplementation group: "org.springframework.boot", name: "spring-boot-starter-data-jdbc", version: "${springBootVersion}"
     jooqRuntime group: 'org.postgresql', name: 'postgresql', version: "${postgresqlDriverVersion}"
@@ -63,6 +65,10 @@ jooq {
                 immutablePojos = true
                 pojosEqualsAndHashCode = true
                 javaTimeTypes = true
+                nullableAnnotation = true
+                nullableAnnotationType = "org.jetbrains.annotations.Nullable"
+                nonnullAnnotation = true
+                nonnullAnnotationType = "org.jetbrains.annotations.NotNull"
             }
         }
     }
