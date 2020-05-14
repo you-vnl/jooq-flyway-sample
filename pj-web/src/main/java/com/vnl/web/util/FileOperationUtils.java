@@ -25,10 +25,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * ファイル操作に関するユーティリティクラスです。
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FileOperationUtils {
 
     /**
