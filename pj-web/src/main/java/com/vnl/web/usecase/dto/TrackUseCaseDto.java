@@ -1,4 +1,4 @@
-package com.vnl.web.domain.model;
+package com.vnl.web.usecase.dto;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-public class Track {
+public class TrackUseCaseDto {
     /**
      * トラックID
      */

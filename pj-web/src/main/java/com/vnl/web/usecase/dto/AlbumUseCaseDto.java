@@ -1,17 +1,15 @@
-package com.vnl.web.domain.model;
+package com.vnl.web.usecase.dto;
 
 import java.util.Optional;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
  * アルバム
  */
+@RequiredArgsConstructor
 @Getter
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-public class Album {
-
+public class AlbumUseCaseDto {
     /**
      * アルバムID
      */
@@ -40,16 +38,17 @@ public class Album {
     /**
      * アルバムアーティスト
      */
-    private Artist albumArtist;
+    private ArtistUseCaseDto albumArtist;
 
     /**
      * アルバムアーティストを取得します。
      *
      * @return アルバムアーティスト
      */
-    public Optional<Artist> getAlbumArtist() {
+    public Optional<ArtistUseCaseDto> getAlbumArtist() {
         return Optional.ofNullable(albumArtist);
     }
+
 
     /**
      * アルバムアーティスト情報を付与します。
@@ -59,7 +58,7 @@ public class Album {
      * @param artistViewUrl アーティストビューURL
      */
     void attachAlbumArtist(final int artistId, final String artistName, final String artistViewUrl) {
-        albumArtist = new Artist(artistId, artistName, artistViewUrl);
+        albumArtist = new ArtistUseCaseDto(artistId, artistName, artistViewUrl);
     }
 
 }

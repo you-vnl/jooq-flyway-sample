@@ -1,6 +1,5 @@
 package com.vnl.web.infrastructure.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
@@ -19,6 +18,5 @@ public class ITunesApiResultListDto<T> {
     /**
      * 結果リスト
      */
-    @JsonProperty("results")
-    private List<T> resultList = new ArrayList<>();
+    private List<T> results = new ArrayList<>();
 }

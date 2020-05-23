@@ -1,17 +1,14 @@
-package com.vnl.web.domain.model;
+package com.vnl.web.presentation.response;
 
-import java.util.Optional;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
  * アルバム
  */
+@RequiredArgsConstructor
 @Getter
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
-public class Album {
-
+class AlbumResponse {
     /**
      * アルバムID
      */
@@ -40,16 +37,7 @@ public class Album {
     /**
      * アルバムアーティスト
      */
-    private Artist albumArtist;
-
-    /**
-     * アルバムアーティストを取得します。
-     *
-     * @return アルバムアーティスト
-     */
-    public Optional<Artist> getAlbumArtist() {
-        return Optional.ofNullable(albumArtist);
-    }
+    private ArtistResponse albumArtist;
 
     /**
      * アルバムアーティスト情報を付与します。
@@ -59,7 +47,7 @@ public class Album {
      * @param artistViewUrl アーティストビューURL
      */
     void attachAlbumArtist(final int artistId, final String artistName, final String artistViewUrl) {
-        albumArtist = new Artist(artistId, artistName, artistViewUrl);
+        albumArtist = new ArtistResponse(artistId, artistName, artistViewUrl);
     }
 
 }

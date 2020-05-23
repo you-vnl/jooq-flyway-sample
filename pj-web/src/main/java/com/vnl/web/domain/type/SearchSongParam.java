@@ -1,4 +1,4 @@
-package com.vnl.web.domain.model;
+package com.vnl.web.domain.type;
 
 import java.net.URI;
 import lombok.RequiredArgsConstructor;

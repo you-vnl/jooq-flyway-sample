@@ -1,12 +1,10 @@
 package com.vnl.web.domain.model;
 
-import java.util.Objects;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.Nullable;
 
 /**
- * 楽曲詳細
+ * 楽曲情報の集約ルートクラス
  */
 @NoArgsConstructor
 @Getter
@@ -25,7 +23,6 @@ public class Song {
     /**
      * アルバム
      */
-    @Nullable
     private Album album;
 
     /**
@@ -60,7 +57,6 @@ public class Song {
      * アルバムアーティスト情報を付与します。
      */
     public void attachAlbumArtist(final int artistId, final String artistName, final String artistViewUrl) {
-        Objects.requireNonNull(album, "album must not be null");
         album.attachAlbumArtist(artistId, artistName, artistViewUrl);
     }
 

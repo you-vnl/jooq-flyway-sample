@@ -1,8 +1,8 @@
 package com.vnl.web.infrastructure;
 
-import com.vnl.web.domain.model.SearchSongParam;
 import com.vnl.web.domain.model.Song;
 import com.vnl.web.domain.repository.SongRepository;
+import com.vnl.web.domain.type.SearchSongParam;
 import com.vnl.web.infrastructure.dto.ITunesApiResultListDto;
 import com.vnl.web.infrastructure.dto.SongDto;
 import com.vnl.web.util.HttpClientUtils;
@@ -45,7 +45,7 @@ public class SongByITunesDataSource implements SongRepository {
 
             final ITunesApiResultListDto<SongDto> resultList = HttpClientUtils.deserialize(SongDto.class, response.body());
 
-            return resultList.getResultList()
+            return resultList.getResults()
                 .stream()
                 .map(SongDto::convertToModel)
                 .collect(Collectors.toList());

@@ -1,7 +1,7 @@
 package com.vnl.web.domain.repository;
 
-import com.vnl.web.domain.model.SearchSongParam;
 import com.vnl.web.domain.model.Song;
+import com.vnl.web.domain.type.SearchSongParam;
 import java.util.List;
 
 /**
